@@ -1,0 +1,14 @@
+server:
+  #端口
+  port: 8002
+  application:
+    #服务名
+    name: anyouliang-user
+spring:
+  cloud:
+    nacos:
+      discovery:
+        #服务地址
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
