@@ -2,8 +2,11 @@ server:
   port: 8003
 spring:
   application:
-    name: nacos-consumer
+    name: getAway
   cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
+    getAway:
+      routes:
+        -id: add
+        uri: www.baidu.com
+        predicates:
+          - Path=/add
