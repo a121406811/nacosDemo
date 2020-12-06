@@ -2,11 +2,20 @@ server:
   port: 8003
 spring:
   application:
-    name: getAway
+    name: nacos-getaway
   cloud:
-    getAway:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        file-extension: properties
+        server-addr: 127.0.0.1:8848
+    gateway:
       routes:
-        -id: add
-        uri: www.baidu.com
-        predicates:
-          - Path=/add
+        - id: neo_route
+          uri: lb://nacos-service
+          predicates:
+            - Path=/test
+#      discovery:
+#        locator:
+#          enabled: false
+#          lower-case-service-id: true
