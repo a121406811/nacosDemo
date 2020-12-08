@@ -11,16 +11,13 @@ spring:
         server-addr: 127.0.0.1:8848
     gateway:
       routes:
-#        - id: neo_route
-#          uri: lb://nacos-service
-#          predicates:
-#            - Path=/test
-
         - id: nacosSwagger
           uri: lb://nacos-service
-#          uri: localhost:8002
           predicates:
-            - Path=/test/*
+            - Path=/test/**
+          filters:
+#            - SwaggerHeaderFilter
+            - StripPrefix=1
       discovery:
         locator:
           enabled: true
