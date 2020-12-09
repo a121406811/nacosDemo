@@ -1,0 +1,40 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: nacos-getaway
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        file-extension: yaml
+        server-addr: 127.0.0.1:8848
+#    gateway:
+#      routes:
+#        - id: nacosSwagger
+#          uri: lb://nacos-service
+#          predicates:
+#            - Path=/nacos/**
+#          filters:
+##            - SwaggerHeaderFilter
+#            - StripPrefix=1
+#        - id: testSwagger
+#          uri: lb://nacos-test
+#          predicates:
+#            - Path=/test/**
+#          filters:
+##            - SwaggerHeaderFilter
+#            - StripPrefix=1
+      discovery:
+        locator:
+          enabled: true
+
+
+
+
+#imooc:
+#  service:
+#    imooc-product: product
+#    imooc-order: order
