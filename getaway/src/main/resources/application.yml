@@ -3,11 +3,13 @@ server:
 spring:
   application:
     name: nacos-getaway
+  profiles:
+    active: dev
   cloud:
     nacos:
       server-addr: 127.0.0.1:8848
       config:
-        file-extension: properties
+        file-extension: yaml
         server-addr: 127.0.0.1:8848
     gateway:
       routes:
