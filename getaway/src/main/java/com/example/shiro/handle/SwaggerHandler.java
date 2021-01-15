@@ -1,4 +1,4 @@
-package com.example.getaway.handle;
+package com.example.shiro.handle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.example.getaway.config;
+package com.example.shiro.config;
 
 import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.config.GatewayProperties;
@@ -6,13 +6,11 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.support.NameUtils;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
-import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Sywd

@@ -63,6 +63,14 @@
 			<version>1.9.0.RELEASE</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20201115</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<dependencyManagement>
