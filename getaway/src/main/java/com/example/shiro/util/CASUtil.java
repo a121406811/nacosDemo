@@ -13,6 +13,12 @@ public class CASUtil {
     private static RestTemplate restTemplate = new RestTemplate();
     private static ResponseEntity<String> result = null;
 
+    /**
+     *  调用CAS，验证账户密码
+     * @param username
+     * @param password
+     * @return
+     */
     public static ResponseEntity<String> getCasToken(String username, String password) {
         MultiValueMap<String, String> requestParam = new LinkedMultiValueMap<>();
         requestParam.set("grant_type", "password");
@@ -23,7 +29,7 @@ public class CASUtil {
         try {
             result = restTemplate.postForEntity(getTokenUrl, requestParam, String.class);
         } catch (Exception e) {
-            //要获取状态码返回？？？？？？？？？？？？
+            //获取状态码返回
             int code = Integer.parseInt(e.toString().split(":")[1].trim());
             result = new ResponseEntity(HttpStatus.valueOf(code));
         }
@@ -31,6 +37,11 @@ public class CASUtil {
         return result;
     }
 
+    /**
+     * 调用CAS  验证token
+     * @param token
+     * @return
+     */
     public static ResponseEntity<String> getUserIdToToken(String token) {
 
         try {

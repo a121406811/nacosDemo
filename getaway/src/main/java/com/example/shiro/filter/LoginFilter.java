@@ -26,6 +26,7 @@ import java.util.Map;
 /**
  * 自定义一个全局过滤器
  * 实现 globalfilter , ordered接口
+ * 拦截所有请求，使所有请求在访问之前必须登录
  */
 @Component
 public class LoginFilter implements GlobalFilter, Ordered {

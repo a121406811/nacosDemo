@@ -9,6 +9,7 @@
         <module name="test" />
         <module name="getaway" />
         <module name="nacos" />
+        <module name="service-cuntian" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -22,6 +23,7 @@
       <module name="nacos" options="-parameters" />
       <module name="nacosDemo" options="-parameters" />
       <module name="server-cuntian" options="-parameters" />
+      <module name="service-cuntian" options="-parameters" />
       <module name="shiro" options="-parameters" />
       <module name="test" options="-parameters" />
     </option>

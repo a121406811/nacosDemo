@@ -12,6 +12,12 @@ import java.util.Map;
 
 public class RestTemplateUtil {
 
+    /**
+     * 返回自定义消息，通过过滤器返回
+     * @param map
+     * @param response
+     * @return
+     */
     public static Mono<Void> outPut(Map<String, Object> map, ServerHttpResponse response) {
         JSONObject message = (JSONObject) JSON.toJSON(map);
         byte[] bits = message.toJSONString().getBytes(StandardCharsets.UTF_8);

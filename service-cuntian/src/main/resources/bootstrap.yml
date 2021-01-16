@@ -1,0 +1,38 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: service-cuntian
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+  profiles:
+    active: dev
+  datasource:
+    kylin:
+      name: kylin
+      type: org.apache.tomcat.jdbc.pool.DataSource
+      driver-class-name: org.apache.kylin.jdbc.Driver
+      jdbc-url: jdbc:kylin://172.69.1.171:7070/xh_dbsync
+      username: ADMIN
+      password: KYLIN
+      maxWaitTime: 10000
+      poolSize: 10
+
+swagger:
+  base-package: com.example.servicecuntian.controller
+
+#kylin
+#  spring.datasource.kylin.name=kylin
+#  spring.datasource.kylin.type=org.apache.tomcat.jdbc.pool.DataSource
+#  spring.datasource.kylin.driver-class-name=org.apache.kylin.jdbc.Driver
+#  spring.datasource.kylin.jdbc-url=jdbc:kylin://172.69.1.171:7070/xh_dbsync
+#  spring.datasource.kylin.username=ADMIN
+#  spring.datasource.kylin.password=KYLIN
+#  #10s
+#  spring.datasource.kylin.maxWaitTime=10000
+#  spring.datasource.kylin.poolSize=10
+#
+#  server.port=9001
