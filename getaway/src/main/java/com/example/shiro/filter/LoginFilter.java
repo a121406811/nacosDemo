@@ -87,8 +87,7 @@ public class LoginFilter implements GlobalFilter, Ordered {
         // 先判断token  在判断账户密码
         if (StringUtils.isBlank(access_token)) {
             if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
-                exchange.getResponse().setStatusCode(HttpStatus.BAD_REQUEST);
-                return response.setComplete(); //请求结束
+                return RestTemplateUtil.outPut(Result.success(400, "请进行身份认证"), response);
             } else {
                 // 调用CAS获取token
                 // 请求结束  返回token
@@ -114,9 +113,7 @@ public class LoginFilter implements GlobalFilter, Ordered {
             userId = Util.jsonGetValue(body, "id");
             return chain.filter(exchange); //继续向下执行
         } catch (Exception e) {
-//            e.printStackTrace();
-            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-            return exchange.getResponse().setComplete(); //请求结束
+            return RestTemplateUtil.outPut(Result.success(401, "Unauthorized"), response);
         }
     }
 
