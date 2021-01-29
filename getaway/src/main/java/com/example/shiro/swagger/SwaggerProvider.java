@@ -1,4 +1,4 @@
-package com.example.shiro.config;
+package com.example.shiro.swagger;
 
 import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.config.GatewayProperties;

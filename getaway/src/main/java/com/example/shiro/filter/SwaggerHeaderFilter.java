@@ -1,6 +1,6 @@
 package com.example.shiro.filter;
 
-import com.example.shiro.config.SwaggerProvider;
+import com.example.shiro.swagger.SwaggerProvider;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
