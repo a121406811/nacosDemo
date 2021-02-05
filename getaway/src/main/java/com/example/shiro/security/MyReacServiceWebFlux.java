@@ -3,6 +3,7 @@ package com.example.shiro.security;
 import com.example.shiro.dao.RoleDao;
 import com.example.shiro.domain.Permission;
 import com.example.shiro.domain.Role;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authorization.AuthorizationDecision;
@@ -22,8 +23,10 @@ import java.util.List;
  * 自定义的鉴权服务，通过鉴权的才能继续访问某个请求<br>
  * 由于SpringGateWay基于WebFlux，所以SpringSecruity很多原有写法，都得改为WebFlux的方式才能生效！
  */
+@Slf4j
 @Component
 public class MyReacServiceWebFlux implements ReactiveAuthorizationManager<AuthorizationContext> {
+
 
     @Autowired
     private RoleDao roleDao;
@@ -52,6 +55,7 @@ public class MyReacServiceWebFlux implements ReactiveAuthorizationManager<Author
 
         // 请求路径匹配到的资源需要的角色权限集合authorities统计
         List<String> authorities = new ArrayList<>();
+        List<Role> all = roleDao.findAll();
         for (Role role : roleDao.findAll()) {
             for (Permission permission : role.getPermissions()) {
                 if (pathMatcher.match(permission.getName(), path)) {
@@ -66,9 +70,9 @@ public class MyReacServiceWebFlux implements ReactiveAuthorizationManager<Author
                 .map(GrantedAuthority::getAuthority)
                 .any(roleId -> {
                     // roleId是请求用户的角色(格式:ROLE_{roleId})，authorities是请求资源所需要角色的集合
-//                    log.info("访问路径：{}", path);
-//                    log.info("用户角色roleId：{}", roleId);
-//                    log.info("资源需要权限authorities：{}", authorities);
+                    log.info("访问路径：{}", path);
+                    log.info("用户角色roleId：{}", roleId);
+                    log.info("资源需要权限authorities：{}", authorities);
                     System.out.println("访问路径：{}" + path);
                     System.out.println("用户角色roleId：{}" + roleId);
                     System.out.println("资源需要权限authorities：{}" + authorities);

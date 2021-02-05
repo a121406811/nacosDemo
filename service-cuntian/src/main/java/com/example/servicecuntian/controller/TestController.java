@@ -3,6 +3,7 @@ package com.example.servicecuntian.controller;
 import com.example.servicecuntian.model.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @Api(value = "村田接口")
 @RequestMapping("/cuntianKylin")
 @RestController
@@ -100,6 +102,7 @@ public class TestController {
     @GetMapping(value = "/forecast")
     public List<Forecast> forecast() {
 //        long startTime = System.currentTimeMillis(); //获取开始时间
+        log.info("forecast数据被调用");
         String sql = "select osa,\n" +
                 "       distributor_name,\n" +
                 "       customer_code,\n" +

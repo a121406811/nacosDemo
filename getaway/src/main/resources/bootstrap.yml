@@ -48,3 +48,10 @@ spring:
 #  service:
 #    imooc-product: product
 #    imooc-order: order
+
+#logging: path: /data/logs/${spring.application.name}
+logging:
+  config:
+    classpath: logback-spring.xml
+  level:
+    com.alibaba.nacos.client.*: WARN

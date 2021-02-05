@@ -36,3 +36,9 @@ swagger:
 #  spring.datasource.kylin.poolSize=10
 #
 #  server.port=9001
+
+logging:
+  config:
+    classpath: logback-spring.xml
+  level:
+    com.alibaba.nacos.client.*: WARN
