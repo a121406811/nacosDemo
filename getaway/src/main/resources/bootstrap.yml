@@ -32,8 +32,8 @@ spring:
           enabled: true
   datasource:
     username: root
-    password: 123456
-    url: jdbc:mysql://localhost:3399/gateway?useUnicode=true&useSSL=true&characterEncoding=UTF-8&serverTimezone=UTC
+    password: admin
+    url: jdbc:mysql://172.20.11.103:3306/portal?useUnicode=false&useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     driverClassName: com.mysql.jdbc.Driver
   jpa:
     database: mysql
