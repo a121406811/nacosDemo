@@ -1,5 +1,6 @@
 package com.example.servicecuntian.controller;
 
+import com.example.servicecuntian.exception.BusinessException;
 import com.example.servicecuntian.model.*;
 import com.example.servicecuntian.service.*;
 import com.example.servicecuntian.util.Result;
@@ -142,8 +143,13 @@ public class TestController {
 
     private void verificationLastRecordNum(long lastRecordNum, int count) {
         if (lastRecordNum > count) {
-            log.info("ERROR:请求参数lastRecordNum大于总条数");
+            throw new BusinessException("ERROR", "请求参数lastRecordNum大于总条数");
         }
     }
 
+    /**
+     * 输入参数类型不对时，异常捕捉
+     * AOP切面处理参数处理校验
+     * nacos注册限制
+     */
 }

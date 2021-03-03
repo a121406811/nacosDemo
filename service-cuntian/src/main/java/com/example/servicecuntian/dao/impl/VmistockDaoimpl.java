@@ -35,9 +35,9 @@ public class VmistockDaoimpl implements VmistockDao {
                 "from hana_new_dbsyn.xh_vmistock_file\n" +
                 "group by seq, osa, disty_name, customer_code, end_costomer_name, cpn, mpn, application, end_customer_part, warhouse\n" +
                 "order by seq asc\n" +
-                "limit ?," + pageNum;
+                "limit " + startNum + "," + pageNum;
         RowMapper<Vmistock> rowMapper = new BeanPropertyRowMapper<>(Vmistock.class);
-        return kylinTemplate.query(sql, rowMapper, startNum);
+        return kylinTemplate.query(sql, rowMapper);
     }
 
     @Override

@@ -32,9 +32,9 @@ public class StockDaoImpl implements StockDao {
                 "       sum(stock_qty) as stock_qty\n" +
                 "from hana_new_dbsyn.xh_stock_file\n" +
                 "group by seq, osa, disty_name, customer_code, end_costomer_name, cpn, mpn, application, end_customer_part, warhouse\n" +
-                " order by seq asc limit ?," + pageNum;
+                " order by seq asc limit " + startNum + "," + pageNum;
         RowMapper<Stock> rowMapper = new BeanPropertyRowMapper<>(Stock.class);
-        return kylinTemplate.query(sql, rowMapper, startNum);
+        return kylinTemplate.query(sql, rowMapper);
     }
 
     public int getCount() {

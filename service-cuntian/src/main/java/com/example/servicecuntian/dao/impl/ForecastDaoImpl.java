@@ -40,10 +40,10 @@ public class ForecastDaoImpl implements ForecastDao {
                 "group by seq, osa, disty_name, customer_code, end_costomer_name, cpn, mpn, application, end_customer_part,\n" +
                 "         flag, upload_date\n" +
                 "order by seq asc \n" +
-                "limit ?," + pageNum;
+                "limit " + startNum + ", " + pageNum;
 
         RowMapper<Forecast> rowMapper = new BeanPropertyRowMapper<>(Forecast.class);
-        return kylinTemplate.query(sql, rowMapper, startNum);
+        return kylinTemplate.query(sql, rowMapper);
     }
 
     @Override
