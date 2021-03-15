@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ForecastDao {
 
-    public List<Forecast> getForecasts(Integer startNum, Integer pageNum);
+    public List<Forecast> getForecasts(Integer startNum, Integer pageNum) throws Exception;
 
-    public Integer getCount();
+    public Integer getCount() throws Exception;
 }

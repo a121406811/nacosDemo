@@ -19,7 +19,7 @@ public class SalesDaoImpl implements SalesDao {
     private JdbcTemplate kylinTemplate;
 
     @Override
-    public List<Sales> getSales(String salesDateFrom, String salesDateTo, int startNum, int pageNum) {
+    public List<Sales> getSales(String salesDateFrom, String salesDateTo, int startNum, int pageNum) throws Exception {
         String sql = "select seq,\n" +
                 "       osa,\n" +
                 "       disty_name,\n" +
@@ -41,7 +41,7 @@ public class SalesDaoImpl implements SalesDao {
     }
 
     @Override
-    public int getCount() {
+    public int getCount() throws Exception {
         String sql = "select count(seq) from hana_new_dbsyn.xh_sales_file";
         return kylinTemplate.queryForObject(sql, Integer.class);
     }

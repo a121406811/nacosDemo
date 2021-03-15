@@ -21,6 +21,7 @@ public class LoginController {
     public Map<String, Object> login(@RequestHeader("username") String username, @RequestHeader("password") String password) {
         log.info("--------------用户{}进入登录方法-------------", username);
         ResponseEntity<String> casToken = CASUtil.getCasToken(username, password);
+        log.info("--------------访问CAS服务器成功-------------", username);
         int status = casToken.getStatusCodeValue();
         String body = casToken.getBody();
         Map<String, Object> result = null;

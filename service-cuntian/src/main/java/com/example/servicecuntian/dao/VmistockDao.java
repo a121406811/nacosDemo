@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface VmistockDao {
 
-    public List<Vmistock> getVmistocks(int startNum, int pageNum);
+    public List<Vmistock> getVmistocks(int startNum, int pageNum) throws Exception;
 
-    public int getCount();
+    public int getCount() throws Exception;
 }

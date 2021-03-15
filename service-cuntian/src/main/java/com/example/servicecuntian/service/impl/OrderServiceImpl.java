@@ -3,6 +3,7 @@ package com.example.servicecuntian.service.impl;
 import com.example.servicecuntian.dao.OrderDao;
 import com.example.servicecuntian.model.Order;
 import com.example.servicecuntian.service.OrderService;
+import com.example.servicecuntian.service.ServiceExceptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,28 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
 
+    @Autowired
+    private ServiceExceptionUtil serviceExceptionUtil;
+
     @Override
     public List<Order> getOrders(String orderDateFrom, String orderDateTo, int startNum, int pageNum) {
-        return orderDao.getOrders(orderDateFrom, orderDateTo, startNum, pageNum);
+        List<Order> orders = null;
+        try {
+            orders = orderDao.getOrders(orderDateFrom, orderDateTo, startNum, pageNum);
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return orders;
     }
 
     @Override
     public int getCount() {
-        return orderDao.getCount();
+        int count = 0;
+        try {
+            count = orderDao.getCount();
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return count;
     }
 }

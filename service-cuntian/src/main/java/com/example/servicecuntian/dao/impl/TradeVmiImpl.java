@@ -21,7 +21,7 @@ public class TradeVmiImpl implements TradeVmiDao {
     private JdbcTemplate kylinTemplate;
 
     @Override
-    public List<TradeVmi> getTradeVmis(String tradeDateFrom, String tradeDateTo, int startNum, int pageNum) {
+    public List<TradeVmi> getTradeVmis(String tradeDateFrom, String tradeDateTo, int startNum, int pageNum) throws Exception{
         String sql = "select seq,\n" +
                 "       osa,\n" +
                 "       disty_name,\n" +
@@ -44,7 +44,7 @@ public class TradeVmiImpl implements TradeVmiDao {
     }
 
     @Override
-    public int getCount() {
+    public int getCount()throws Exception {
         String sql = "select count(seq) from hana_new_dbsyn.xh_trade_vmi_file";
         return kylinTemplate.queryForObject(sql, Integer.class);
     }

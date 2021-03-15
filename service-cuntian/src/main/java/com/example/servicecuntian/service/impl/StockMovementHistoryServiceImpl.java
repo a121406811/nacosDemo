@@ -2,10 +2,12 @@ package com.example.servicecuntian.service.impl;
 
 import com.example.servicecuntian.dao.StockMovementHistoryDao;
 import com.example.servicecuntian.model.StockMovementHistory;
+import com.example.servicecuntian.service.ServiceExceptionUtil;
 import com.example.servicecuntian.service.StockMovementHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -14,14 +16,29 @@ public class StockMovementHistoryServiceImpl implements StockMovementHistoryServ
     @Autowired
     private StockMovementHistoryDao stockMovementHistoryDao;
 
+    @Autowired
+    private ServiceExceptionUtil serviceExceptionUtil;
+
     @Override
     public List<StockMovementHistory> getStockMovementHistorys(String moveDateFrom, String moveDateTo, int startNum, int pageNum) {
-        return stockMovementHistoryDao.getStockMovementHistorys(moveDateFrom, moveDateTo, startNum, pageNum);
+        List<StockMovementHistory> stockMovementHistorys = null;
+        try {
+            stockMovementHistorys = stockMovementHistoryDao.getStockMovementHistorys(moveDateFrom, moveDateTo, startNum, pageNum);
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return stockMovementHistorys;
     }
 
     @Override
     public int getCount() {
-        return stockMovementHistoryDao.getCount();
+        int count = 0;
+        try {
+            count = stockMovementHistoryDao.getCount();
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return count;
     }
 
 }

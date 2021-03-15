@@ -4,11 +4,13 @@ import com.example.servicecuntian.dao.StockMovementHistoryDao;
 import com.example.servicecuntian.model.StockMovementHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -18,7 +20,7 @@ public class StockMovementHistoryDaoImpl implements StockMovementHistoryDao {
     @Qualifier("kylinTemplate")
     private JdbcTemplate kylinTemplate;
 
-    public List<StockMovementHistory> getStockMovementHistorys(String moveDateFrom, String moveDateTo, int startNum, int pageNum) {
+    public List<StockMovementHistory> getStockMovementHistorys(String moveDateFrom, String moveDateTo, int startNum, int pageNum) throws Exception {
         String sql = "select seq,\n" +
                 "       osa,\n" +
                 "       disty_name,\n" +
@@ -37,13 +39,15 @@ public class StockMovementHistoryDaoImpl implements StockMovementHistoryDao {
                 "       application,end_customer_part,warehouse,move_date,flag\n" +
                 " having move_date> ? and move_date< ? order by seq asc" +
                 "       limit ?," + pageNum;
-
-        RowMapper<StockMovementHistory> rowMapper = new BeanPropertyRowMapper<>(StockMovementHistory.class);
+        RowMapper<StockMovementHistory> rowMapper = null;
+        rowMapper = new BeanPropertyRowMapper<>(StockMovementHistory.class);
         return kylinTemplate.query(sql, rowMapper, moveDateFrom, moveDateTo, startNum);
     }
 
-    public int getCount() {
+    public int getCount() throws Exception {
         String sql = "select count(seq) from hana_new_dbsyn.xh_stock_movement_history";
-        return kylinTemplate.queryForObject(sql, Integer.class);
+        Integer count = 0;
+        count = kylinTemplate.queryForObject(sql, Integer.class);
+        return count;
     }
 }

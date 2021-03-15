@@ -1,16 +1,23 @@
 server:
-  port: 8003
+#  port: 8081
+#  http:
+#    port: 8080
+  ssl:
+    key-store: classpath:szhq000062.com.jks
+    key-store-password: bx9427516a49x78
+    key-store-type: JKS
+
 spring:
   application:
     name: nacos-getaway
-  profiles:
-    active: dev
+#  profiles:
+#    active: dev
   cloud:
     nacos:
-      server-addr: 127.0.0.1:8848
+      server-addr: 172.20.17.69:8848
       config:
         file-extension: yaml
-        server-addr: 127.0.0.1:8848
+        server-addr: 172.20.17.69:8848
 #    gateway:
 #      routes:
 #        - id: nacosSwagger
@@ -55,3 +62,4 @@ logging:
     classpath: logback-spring.xml
   level:
     com.alibaba.nacos.client.*: WARN
+

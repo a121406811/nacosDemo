@@ -8,8 +8,8 @@ import org.springframework.web.client.RestTemplate;
 
 public class CASUtil {
 
-    private static final String getTokenUrl = "https://sso.szhq.com/ssocas/oauth2.0/accessToken";
-    private static final String getIdUrl = "https://sso.szhq.com/ssocas/oauth2.0/profile";
+    private static final String getTokenUrl = "https://yuntestsso.szhq.com/ssocas/oauth2.0/accessToken";
+    private static final String getIdUrl = "https://yuntestsso.szhq.com/ssocas/oauth2.0/profile";
     private static RestTemplate restTemplate = new RestTemplate();
     private static ResponseEntity<String> result = null;
 

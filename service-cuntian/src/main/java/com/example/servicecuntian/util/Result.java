@@ -5,25 +5,26 @@ import java.util.Map;
 
 public class Result {
 
-    public static Map<String, Object> err(String message) {
+    public static Map<String, Object> error(String code, String message) {
         Map<String, Object> data = new HashMap<>();
-        data.put("status", "error");
+        data.put("resultCode", code);
         data.put("message", message);
         return data;
     }
 
-    public static Map<String, Object> success(int code, Object data) {
+/*    public static Map<String, Object> success(int code, Object data) {
         Map<String, Object> redata = new HashMap<>();
         redata.put("status", code);
         redata.put("data", data);
         return redata;
-    }
+    }*/
 
-    public static Map<String, Object> result(long totalDataCount, long currentDataCount, Object data) {
+    public static Map<String, Object> success(long totalDataCount, long currentDataCount, Object data) {
         Map<String, Object> redata = new HashMap<>();
+        redata.put("resultCode", "200");
+        redata.put("request_body", data);
         redata.put("totalDataCount", totalDataCount);
         redata.put("currentDataCount", currentDataCount);
-        redata.put("data", data);
         return redata;
     }
 }

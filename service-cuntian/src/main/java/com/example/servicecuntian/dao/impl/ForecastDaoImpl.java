@@ -19,7 +19,7 @@ public class ForecastDaoImpl implements ForecastDao {
     private JdbcTemplate kylinTemplate;
 
     @Override
-    public List<Forecast> getForecasts(Integer startNum, Integer pageNum) {
+    public List<Forecast> getForecasts(Integer startNum, Integer pageNum) throws Exception {
         String sql = "select seq,\n" +
                 "       osa,\n" +
                 "       disty_name,\n" +
@@ -47,7 +47,7 @@ public class ForecastDaoImpl implements ForecastDao {
     }
 
     @Override
-    public Integer getCount() {
+    public Integer getCount() throws Exception {
         String sql = "select count(seq) from hana_new_dbsyn.xh_forecast_file";
         return kylinTemplate.queryForObject(sql, Integer.class);
     }

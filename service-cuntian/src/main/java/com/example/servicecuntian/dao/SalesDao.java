@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SalesDao {
 
-    public List<Sales> getSales(String salesDateFrom, String salesDateTo, int startNum, int pageNum);
+    public List<Sales> getSales(String salesDateFrom, String salesDateTo, int startNum, int pageNum) throws Exception;
 
-    public int getCount();
+    public int getCount() throws Exception;
 }

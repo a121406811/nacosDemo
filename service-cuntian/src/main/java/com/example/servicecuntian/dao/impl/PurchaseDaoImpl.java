@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -18,7 +19,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
     @Qualifier("kylinTemplate")
     private JdbcTemplate kylinTemplate;
 
-    public List<Purchase> getPurchases(String purchaseDateFrom, String purchaseDateTo, int startNum, int pageNum) {
+    public List<Purchase> getPurchases(String purchaseDateFrom, String purchaseDateTo, int startNum, int pageNum) throws Exception {
         String sql = "select seq,\n" +
                 "       osa,\n" +
                 "       disty_name,\n" +
@@ -42,8 +43,19 @@ public class PurchaseDaoImpl implements PurchaseDao {
         return kylinTemplate.query(sql, rowMapper, purchaseDateFrom, purchaseDateTo, startNum);
     }
 
-    public int getCount() {
+    public int getCount() throws Exception {
         String sql = "select count(seq) from hana_new_dbsyn.xh_purchase_file";
         return kylinTemplate.queryForObject(sql, Integer.class);
+    }
+
+    /**
+     * 查询kylin的date_mark字段
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public String getDateMark() throws Exception{
+        String sql = "select date_mark from hana_new_dbsyn.xh_purchase_file limit 1,1;";
+        return kylinTemplate.queryForObject(sql, String.class);
     }
 }

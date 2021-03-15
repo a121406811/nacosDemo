@@ -21,7 +21,7 @@ public class OrderDaoImpl implements OrderDao {
     private JdbcTemplate kylinTemplate;
 
     @Override
-    public List<Order> getOrders(String orderDateFrom, String orderDateTo, int startNum, int pageNum) {
+    public List<Order> getOrders(String orderDateFrom, String orderDateTo, int startNum, int pageNum) throws Exception{
         String sql = "select seq,\n" +
                 "       osa,\n" +
                 "       disty_name,\n" +
@@ -44,8 +44,9 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public int getCount() {
+    public int getCount() throws Exception{
         String sql = "select count(seq) from hana_new_dbsyn.xh_order_file";
         return kylinTemplate.queryForObject(sql, Integer.class);
     }
+
 }

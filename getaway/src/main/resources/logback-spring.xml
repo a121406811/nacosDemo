@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="log.path" value="D:/logs/gateway/" />
+<!--    <property name="log.path" value="D:\logs\gateway" />-->
+    <property name="log.path" value="/usr/local/share/data_disk/log/gateway" />
 
     <!-- 彩色日志 -->
     <!-- 彩色日志依赖的渲染类 -->
@@ -162,9 +163,9 @@
     -->
 
     <!--开发环境:打印控制台-->
-    <springProfile name="dev">
+<!--    <springProfile name="dev">
         <logger name="com.nmys.view" level="debug"/>
-    </springProfile>
+    </springProfile>-->
 
     <root level="info">
         <appender-ref ref="CONSOLE" />

@@ -20,7 +20,7 @@ public class VmistockDaoimpl implements VmistockDao {
     private JdbcTemplate kylinTemplate;
 
     @Override
-    public List<Vmistock> getVmistocks(int startNum, int pageNum) {
+    public List<Vmistock> getVmistocks(int startNum, int pageNum) throws Exception{
         String sql = "select seq,\n" +
                 "       osa,\n" +
                 "       disty_name,\n" +
@@ -41,7 +41,7 @@ public class VmistockDaoimpl implements VmistockDao {
     }
 
     @Override
-    public int getCount() {
+    public int getCount() throws Exception{
         String sql = "select count(seq) from hana_new_dbsyn.xh_vmistock_file";
         return kylinTemplate.queryForObject(sql, Integer.class);
     }

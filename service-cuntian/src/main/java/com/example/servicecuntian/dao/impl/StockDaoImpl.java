@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -18,7 +19,7 @@ public class StockDaoImpl implements StockDao {
     @Qualifier("kylinTemplate")
     private JdbcTemplate kylinTemplate;
 
-    public List<Stock> getStocks(int startNum, int pageNum) {
+    public List<Stock> getStocks(int startNum, int pageNum) throws Exception {
         String sql = "select seq,\n" +
                 "       osa,\n" +
                 "       disty_name,\n" +
@@ -33,12 +34,15 @@ public class StockDaoImpl implements StockDao {
                 "from hana_new_dbsyn.xh_stock_file\n" +
                 "group by seq, osa, disty_name, customer_code, end_costomer_name, cpn, mpn, application, end_customer_part, warhouse\n" +
                 " order by seq asc limit " + startNum + "," + pageNum;
-        RowMapper<Stock> rowMapper = new BeanPropertyRowMapper<>(Stock.class);
+        RowMapper<Stock> rowMapper = null;
+        rowMapper = new BeanPropertyRowMapper<>(Stock.class);
         return kylinTemplate.query(sql, rowMapper);
     }
 
-    public int getCount() {
+    public int getCount() throws Exception {
         String sql = "select count(seq) from hana_new_dbsyn.xh_stock_file";
-        return kylinTemplate.queryForObject(sql, Integer.class);
+        Integer count = 0;
+        count = kylinTemplate.queryForObject(sql, Integer.class);
+        return count;
     }
 }
