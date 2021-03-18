@@ -38,4 +38,15 @@ public class TradeVmiServiceImpl implements TradeVmiService {
         }
         return count;
     }
+
+    @Override
+    public String getLatestDateMark() {
+        String date = null;
+        try {
+            date = tradeVmiDao.getLatestDateMark();
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return date;
+    }
 }

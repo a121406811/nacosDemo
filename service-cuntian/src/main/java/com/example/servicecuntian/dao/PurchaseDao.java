@@ -12,6 +12,6 @@ public interface PurchaseDao {
 
     public int getCount() throws Exception;
 
-    public String getDateMark() throws Exception;
+    public String getLatestDateMark() throws Exception;
 
 }

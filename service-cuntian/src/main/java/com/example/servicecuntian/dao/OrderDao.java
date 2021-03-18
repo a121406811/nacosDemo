@@ -10,4 +10,6 @@ public interface OrderDao {
 
     public int getCount() throws Exception;
 
+    public String getLatestDateMark() throws Exception;
+
 }

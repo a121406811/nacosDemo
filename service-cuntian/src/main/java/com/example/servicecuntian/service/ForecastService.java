@@ -9,4 +9,6 @@ public interface ForecastService {
     public List<Forecast> getForecasts(Integer startNum, Integer pageNum);
 
     public Integer getCount();
+
+    public String getLatestDateMark();
 }

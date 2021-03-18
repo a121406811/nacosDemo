@@ -9,4 +9,6 @@ public interface TradeVmiService {
     public List<TradeVmi> getTradeVmis(String tradeDateFrom, String tradeDateTo, int startNum, int pageNum);
 
     public int getCount();
+
+    public String getLatestDateMark();
 }

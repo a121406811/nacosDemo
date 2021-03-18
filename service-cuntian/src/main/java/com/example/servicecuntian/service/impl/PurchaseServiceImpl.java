@@ -42,10 +42,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public String getDateMark() {
+    public String getLatestDateMark() {
         String date = null;
         try {
-            date = purchaseDao.getDateMark();
+            date = purchaseDao.getLatestDateMark();
         } catch (Exception e) {
             serviceExceptionUtil.catchContent(e);
         }

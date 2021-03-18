@@ -11,6 +11,6 @@ public interface PurchaseService {
 
     public int getCount();
 
-    public String getDateMark();
+    public String getLatestDateMark();
 
 }

@@ -10,4 +10,7 @@ public interface StockDao {
     public List<Stock> getStocks(int startNum, int pageNum) throws Exception;
 
     public int getCount() throws Exception;
+
+    public String getLatestDateMark() throws Exception;
+
 }

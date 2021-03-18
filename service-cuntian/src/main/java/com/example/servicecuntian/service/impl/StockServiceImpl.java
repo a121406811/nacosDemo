@@ -44,4 +44,15 @@ public class StockServiceImpl implements StockService {
         }
         return count;
     }
+
+    @Override
+    public String getLatestDateMark() {
+        String date = null;
+        try {
+            date = stockDao.getLatestDateMark();
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return date;
+    }
 }

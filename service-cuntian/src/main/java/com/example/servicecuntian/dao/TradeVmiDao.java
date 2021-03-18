@@ -10,4 +10,7 @@ public interface TradeVmiDao {
     public List<TradeVmi> getTradeVmis(String tradeDateFrom, String tradeDateTo, int startNum, int pageNum) throws Exception;
 
     public int getCount() throws Exception;
+
+    public String getLatestDateMark() throws Exception;
+
 }

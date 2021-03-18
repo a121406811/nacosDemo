@@ -1,17 +1,21 @@
 package com.example.servicecuntian.aop;
 
 import com.example.servicecuntian.exception.BusinessException;
-import com.example.servicecuntian.service.PurchaseService;
 import com.example.servicecuntian.util.EmailUtil;
+import com.example.servicecuntian.util.SpringContextUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,8 +30,7 @@ public class DataValidation {
 
     private final String ExpGetResultDataPonit = "execution(* com.example.servicecuntian.controller.*.*(..))";
 
-    @Autowired
-    private PurchaseService purchaseService;
+    private static final Logger logger = LoggerFactory.getLogger(DataValidation.class);
 
     @Autowired
     private EmailUtil emailUtil;
@@ -65,10 +68,12 @@ public class DataValidation {
     /**
      * 最终通知，目标方法执行完之后执行
      */
-    @AfterReturning(value = ExpGetResultDataPonit, returning = "result")
+    @AfterReturning(value = ExpGetResultDataPonit, returning = "result")   //result为切入方法的返回参数
     public void afterAdvice(JoinPoint joinPoint, Map<String, Object> result) {
-        System.out.println("AOP start");
-        verificationTime(result);
+//        System.out.println("AOP start");
+        // 获取切入方法输入参数
+        Object[] obj = joinPoint.getArgs();
+        verificationTime(joinPoint.getSignature().getName(), obj, result);
     }
 
     /**
@@ -76,26 +81,34 @@ public class DataValidation {
      * 1、时间是否对的上
      * 2、是否为空
      */
-    private void verificationTime(Map<String, Object> result) {
+    private void verificationTime(String methodName, Object[] obj, Map<String, Object> result) {
         List<Object> request_body = (List<Object>) result.get("request_body");
-        if (request_body != null) {
-            String dateMark = purchaseService.getDateMark();
-            boolean b = isNow(dateMark);
-            if (!b) {
-                result.put("resultCode", "900");   //数据不是最新的，当天kylin数据未更新
-                emailUtil.sendTemplateEmail(emails, "kylin数据不是最新，请检查！", "kylin数据不是最新");
-            }
-        } else {
+        String msg = null;
+        Integer lastRecordNum = (Integer) (obj.length == 1 ? obj[0] : obj[2]);
+        // 检查数据是否为空
+        if (request_body.size() == 0) {
             result.put("resultCode", "204");    //数据为空
-            emailUtil.sendTemplateEmail(emails, "kylin数据为空，请检查！", "kylin数据为空");
+            msg = msg + "kylin中的" + methodName + "数据为空，请检查！";
+            if (lastRecordNum == 0) {
+                logger.error(msg);
+                emailUtil.sendTemplateEmail(emails, msg, null);
+            }
+        }
+        // 检查数据是否是当天
+        String dateMark = (String) invoke(methodName);
+        boolean b = isNow(dateMark);
+        if (!b) {
+            result.put("resultCode", "900");   //数据不是最新的，当天kylin数据未更新
+            msg = msg + "kylin中的" + methodName + "数据不是最新，请检查！";
+            // 每个表完整获取一次数据时，发送一次邮件
+            if (lastRecordNum == 0) {
+                emailUtil.sendTemplateEmail(emails, msg, null);
+            }
         }
     }
 
     /**
      * 判断时间是否是当天
-     *
-     * @param date
-     * @return
      */
     private static boolean isNow(String date) {
         //当前时间
@@ -108,8 +121,6 @@ public class DataValidation {
 
     /***
      * 判断字符串是否是yyyyMMdd格式
-     * @param mes 字符串
-     * @return boolean 是否是日期格式
      */
     private static boolean isRqFormat(String mes) {
         String format = "([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])";
@@ -132,5 +143,35 @@ public class DataValidation {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 通过反射调用service层的getLatestDateMark方法
+     */
+    private Object invoke(String methodName) {
+        String className = "com.example.servicecuntian.service." + methodName.substring(0, 1).toUpperCase() + methodName.substring(1) + "Service";
+        Object obj = null;
+        try {
+            Class<?> clazz = Class.forName(className);
+            Method method = clazz.getMethod("getLatestDateMark");
+            obj = method.invoke(SpringContextUtil.getBean(clazz));
+            System.out.println(obj);
+        } catch (InvocationTargetException e) {
+            logger.error(methodName + "表调用getLatestDateMark时失败，反射调用对象方法失败");
+            logger.error(e.getMessage());
+        } catch (NoSuchMethodException e) {
+            logger.error(methodName + "表调用getLatestDateMark时失败，反射调用对象方法不存在");
+            logger.error(e.getMessage());
+        } catch (IllegalAccessException e) {
+            logger.error(methodName + "表调用getLatestDateMark时失败，反射调用对象方法格式错误");
+            logger.error(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            logger.error(methodName + "表调用getLatestDateMark时失败，反射类不存在");
+            logger.error(e.getMessage());
+        } catch (Exception e) {
+            logger.error(methodName + "表调用getLatestDateMark时失败，反射错误");
+            logger.error(e.getMessage());
+        }
+        return obj;
     }
 }

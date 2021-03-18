@@ -38,4 +38,15 @@ public class SalesServiceImpl implements SalesService {
         }
         return count;
     }
+
+    @Override
+    public String getLatestDateMark() {
+        String date = null;
+        try {
+            date = salesDao.getLatestDateMark();
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return date;
+    }
 }

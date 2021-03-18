@@ -9,4 +9,7 @@ public interface ForecastDao {
     public List<Forecast> getForecasts(Integer startNum, Integer pageNum) throws Exception;
 
     public Integer getCount() throws Exception;
+
+    public String getLatestDateMark() throws Exception;
+
 }

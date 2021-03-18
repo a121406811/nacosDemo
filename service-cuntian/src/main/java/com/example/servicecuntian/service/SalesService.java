@@ -9,4 +9,6 @@ public interface SalesService {
     public List<Sales> getSales(String salesDateFrom, String salesDateTo, int startNum, int pageNum);
 
     public int getCount();
+
+    public String getLatestDateMark();
 }

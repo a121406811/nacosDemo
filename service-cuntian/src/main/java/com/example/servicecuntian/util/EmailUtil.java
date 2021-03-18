@@ -82,6 +82,7 @@ public class EmailUtil {
             logger.error(e.toString());
             // 企业微信提醒
 //            WeixinServerForSendTouserUtil.send(receivers, title);
+            //log作为附件发送？
         }
     }
 }

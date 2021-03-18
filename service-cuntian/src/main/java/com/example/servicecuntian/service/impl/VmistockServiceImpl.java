@@ -38,4 +38,15 @@ public class VmistockServiceImpl implements VmistockService {
         }
         return count;
     }
+
+    @Override
+    public String getLatestDateMark() {
+        String date = null;
+        try {
+            date = vmistockDao.getLatestDateMark();
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return date;
+    }
 }

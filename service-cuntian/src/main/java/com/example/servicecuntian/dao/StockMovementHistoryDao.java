@@ -11,4 +11,6 @@ public interface StockMovementHistoryDao {
 
     public int getCount() throws Exception;
 
+    public String getLatestDateMark() throws Exception;
+
 }

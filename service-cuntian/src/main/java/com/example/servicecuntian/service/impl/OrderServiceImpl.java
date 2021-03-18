@@ -38,4 +38,15 @@ public class OrderServiceImpl implements OrderService {
         }
         return count;
     }
+
+    @Override
+    public String getLatestDateMark() {
+        String latestDateMark = null;
+        try {
+            latestDateMark = orderDao.getLatestDateMark();
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return latestDateMark;
+    }
 }

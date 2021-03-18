@@ -9,4 +9,7 @@ public interface VmistockDao {
     public List<Vmistock> getVmistocks(int startNum, int pageNum) throws Exception;
 
     public int getCount() throws Exception;
+
+    public String getLatestDateMark() throws Exception;
+
 }

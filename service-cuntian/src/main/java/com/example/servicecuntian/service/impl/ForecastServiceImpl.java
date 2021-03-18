@@ -34,8 +34,19 @@ public class ForecastServiceImpl implements ForecastService {
         try {
             count = forecastDao.getCount();
         } catch (Exception e) {
-            e.printStackTrace();
+            serviceExceptionUtil.catchContent(e);
         }
         return count;
+    }
+
+    @Override
+    public String getLatestDateMark() {
+        String latestDateMark = null;
+        try {
+            latestDateMark = forecastDao.getLatestDateMark();
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return latestDateMark;
     }
 }

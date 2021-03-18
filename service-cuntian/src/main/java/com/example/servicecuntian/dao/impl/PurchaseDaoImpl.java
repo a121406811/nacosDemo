@@ -49,13 +49,14 @@ public class PurchaseDaoImpl implements PurchaseDao {
     }
 
     /**
-     * 查询kylin的date_mark字段
+     * 查询kylin的最新的date_mark字段
+     *
      * @return
      * @throws Exception
      */
     @Override
-    public String getDateMark() throws Exception{
-        String sql = "select date_mark from hana_new_dbsyn.xh_purchase_file limit 1,1;";
+    public String getLatestDateMark() throws Exception {
+        String sql = "select date_mark from hana_new_dbsyn.xh_purchase_file order by date_mark desc limit 1,1;";
         return kylinTemplate.queryForObject(sql, String.class);
     }
 }

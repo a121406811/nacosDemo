@@ -9,4 +9,6 @@ public interface OrderService {
     public List<Order> getOrders(String orderDateFrom, String orderDateTo, int startNum, int pageNum);
 
     public int getCount();
+
+    public String getLatestDateMark();
 }

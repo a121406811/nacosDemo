@@ -45,4 +45,16 @@ public class SalesDaoImpl implements SalesDao {
         String sql = "select count(seq) from hana_new_dbsyn.xh_sales_file";
         return kylinTemplate.queryForObject(sql, Integer.class);
     }
+
+    /**
+     * 查询kylin的最新的date_mark字段
+     *
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public String getLatestDateMark() throws Exception {
+        String sql = "select date_mark from hana_new_dbsyn.xh_sales_file order by date_mark desc limit 1,1;";
+        return kylinTemplate.queryForObject(sql, String.class);
+    }
 }

@@ -41,4 +41,15 @@ public class StockMovementHistoryServiceImpl implements StockMovementHistoryServ
         return count;
     }
 
+    @Override
+    public String getLatestDateMark() {
+        String date = null;
+        try {
+            date = stockMovementHistoryDao.getLatestDateMark();
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return date;
+    }
+
 }

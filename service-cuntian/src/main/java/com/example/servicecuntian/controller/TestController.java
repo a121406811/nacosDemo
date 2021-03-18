@@ -124,14 +124,14 @@ public class TestController {
         return Result.success(count, stockMovementHistorys.size(), stockMovementHistorys);
     }
 
-    @ApiOperation(value = "vmistock")     //这个注解必须要
-    @PostMapping(value = "/vmistock")
-    public Map<String, Object> vmistock(int lastRecordNum) {
+    @ApiOperation(value = "vmiStock")     //这个注解必须要
+    @PostMapping(value = "/vmiStock")
+    public Map<String, Object> vmiStock(int lastRecordNum) {
         int count = vmistockService.getCount();
         verificationLastRecordNum(lastRecordNum, count);
         Integer startNum = getStartNum(lastRecordNum);
-        List<Vmistock> vmistocks = vmistockService.getVmistocks(startNum, pageNum);
-        return Result.success(count, vmistocks.size(), vmistocks);
+        List<Vmistock> vmiStocks = vmistockService.getVmistocks(startNum, pageNum);
+        return Result.success(count, vmiStocks.size(), vmiStocks);
     }
 
     private int getStartNum(int lastRecordNum) {
@@ -143,10 +143,4 @@ public class TestController {
             throw new BusinessException("ERROR", "请求参数lastRecordNum大于总条数");
         }
     }
-
-    /**
-     * 输入参数类型不对时，异常捕捉
-     * AOP切面处理参数处理校验
-     * nacos注册限制
-     */
 }

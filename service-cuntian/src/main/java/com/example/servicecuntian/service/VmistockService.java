@@ -9,4 +9,6 @@ public interface VmistockService {
     public List<Vmistock> getVmistocks(int startNum, int pageNum);
 
     public int getCount();
+
+    public String getLatestDateMark();
 }

@@ -9,4 +9,6 @@ public interface StockService {
     public List<Stock> getStocks(int startNum, int pageNum);
 
     public int getCount();
+
+    public String getLatestDateMark();
 }
