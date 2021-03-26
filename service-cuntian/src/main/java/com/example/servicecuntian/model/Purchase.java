@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 public class Purchase {
 
-    private String seq;
+    private int seq;
     private String osa;
     private String distyName;
     private String customerCode;

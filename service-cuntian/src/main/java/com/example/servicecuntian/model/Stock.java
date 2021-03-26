@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 public class Stock implements Serializable {
 
-    private String seq;
+    private int seq;
     private String osa;
     private String distyName;
     private String customerCode;
@@ -19,8 +19,8 @@ public class Stock implements Serializable {
     private String mpn;
     private String application;
     private String endCustomerPart;
-    private String warhouse;
     private BigDecimal stockQty;
+    private String warhouse;
 //    private String dateformat;
 //    private Timestamp inhivetime;
 

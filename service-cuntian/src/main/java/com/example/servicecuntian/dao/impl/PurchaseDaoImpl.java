@@ -24,7 +24,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
                 "       osa,\n" +
                 "       disty_name,\n" +
                 "       customer_code,\n" +
-                "       end_costomer_name,\n" +
+                "       end_customer_name,\n" +
                 "       cpn,\n" +
                 "       mpn,\n" +
                 "       application,\n" +
@@ -34,7 +34,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
                 "       sum(purchase_qty) purchase_qty,\n" +
                 "       murata_invoice_no\n" +
                 "from hana_new_dbsyn.xh_purchase_file\n" +
-                "group by seq, osa, disty_name, customer_code, end_costomer_name, cpn, mpn, application, end_customer_part,\n" +
+                "group by seq, osa, disty_name, customer_code, end_customer_name, cpn, mpn, application, end_customer_part,\n" +
                 "         warehouse, purchase_date, murata_invoice_no\n" +
                 "having purchase_date > ? and purchase_date < ? order by seq asc\n" +
                 "limit ?," + pageNum;

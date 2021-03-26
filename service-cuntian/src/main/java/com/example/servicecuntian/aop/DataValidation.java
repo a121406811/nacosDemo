@@ -31,6 +31,7 @@ public class DataValidation {
     private final String ExpGetResultDataPonit = "execution(* com.example.servicecuntian.controller.*.*(..))";
 
     private static final Logger logger = LoggerFactory.getLogger(DataValidation.class);
+    private static Logger countLogger = LoggerFactory.getLogger("count");
 
     @Autowired
     private EmailUtil emailUtil;
@@ -54,6 +55,10 @@ public class DataValidation {
     @Before("pointCut()")
     public void beforeAdvice(JoinPoint joinPoint) {
         System.out.println("----------- 前置方法调用 -----------");
+        // 调用时打印日志
+        String methodName = joinPoint.getSignature().getName();
+        countLogger.info(methodName + "方法被调用");
+        // 检查参数格式
         Object[] obj = joinPoint.getArgs();
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         if (obj.length == 3) {
@@ -83,7 +88,7 @@ public class DataValidation {
      */
     private void verificationTime(String methodName, Object[] obj, Map<String, Object> result) {
         List<Object> request_body = (List<Object>) result.get("request_body");
-        String msg = null;
+        String msg = "";
         Integer lastRecordNum = (Integer) (obj.length == 1 ? obj[0] : obj[2]);
         // 检查数据是否为空
         if (request_body.size() == 0) {
@@ -93,18 +98,21 @@ public class DataValidation {
                 logger.error(msg);
                 emailUtil.sendTemplateEmail(emails, msg, null);
             }
-        }
-        // 检查数据是否是当天
-        String dateMark = (String) invoke(methodName);
-        boolean b = isNow(dateMark);
-        if (!b) {
-            result.put("resultCode", "900");   //数据不是最新的，当天kylin数据未更新
-            msg = msg + "kylin中的" + methodName + "数据不是最新，请检查！";
-            // 每个表完整获取一次数据时，发送一次邮件
-            if (lastRecordNum == 0) {
-                emailUtil.sendTemplateEmail(emails, msg, null);
+        } else {
+            // 检查数据是否是最新的
+            String dateMark = (String) invoke(methodName);
+            boolean b = isNow(dateMark);
+            if (!b) {
+                result.put("resultCode", "900");   //数据不是最新的，当天kylin数据未更新
+                msg = msg + "kylin中的" + methodName + "数据最新更新时间为：" + dateMark + "，请检查！";
+                // 每个表完整获取一次数据时，发送一次邮件
+                if (lastRecordNum == 0) {
+                    logger.error(msg);
+                    emailUtil.sendTemplateEmail(emails, msg, null);
+                }
             }
         }
+
     }
 
     /**
@@ -113,7 +121,7 @@ public class DataValidation {
     private static boolean isNow(String date) {
         //当前时间
         Date now = new Date();
-        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         //获取今天的日期
         String nowDay = sf.format(now);
         return nowDay.equals(date);

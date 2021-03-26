@@ -48,7 +48,7 @@ public class TestController {
     private StockMovementHistoryService stockMovementHistoryService;
 
     @Autowired
-    private VmistockService vmistockService;
+    private VmiStockService vmiStockService;
 
 
     @ApiOperation(value = "stock")     //这个注解必须要
@@ -127,10 +127,10 @@ public class TestController {
     @ApiOperation(value = "vmiStock")     //这个注解必须要
     @PostMapping(value = "/vmiStock")
     public Map<String, Object> vmiStock(int lastRecordNum) {
-        int count = vmistockService.getCount();
+        int count = vmiStockService.getCount();
         verificationLastRecordNum(lastRecordNum, count);
         Integer startNum = getStartNum(lastRecordNum);
-        List<Vmistock> vmiStocks = vmistockService.getVmistocks(startNum, pageNum);
+        List<Vmistock> vmiStocks = vmiStockService.getVmiStocks(startNum, pageNum);
         return Result.success(count, vmiStocks.size(), vmiStocks);
     }
 

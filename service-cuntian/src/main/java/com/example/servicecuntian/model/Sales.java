@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Data
 public class Sales {
 
-    private String seq;
+    private int seq;
     private String osa;
     private String distyName;  //  代理店名称
     private String customerCode;     //  村田客户code

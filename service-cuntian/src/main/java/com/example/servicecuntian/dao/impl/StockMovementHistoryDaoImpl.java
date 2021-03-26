@@ -23,7 +23,7 @@ public class StockMovementHistoryDaoImpl implements StockMovementHistoryDao {
                 "       osa,\n" +
                 "       disty_name,\n" +
                 "       customer_code,\n" +
-                "       end_costomer_name,\n" +
+                "       end_customer_name,\n" +
                 "       cpn,\n" +
                 "       mpn,\n" +
                 "       application,\n" +
@@ -33,7 +33,7 @@ public class StockMovementHistoryDaoImpl implements StockMovementHistoryDao {
                 "       sum(move_qty) as move_qty,\n" +
                 "       flag\n" +
                 "from hana_new_dbsyn.xh_stock_movement_history group by\n" +
-                "seq,osa,disty_name,customer_code,end_costomer_name,cpn,mpn,\n" +
+                "seq,osa,disty_name,customer_code,end_customer_name,cpn,mpn,\n" +
                 "       application,end_customer_part,warehouse,move_date,flag\n" +
                 " having move_date> ? and move_date< ? order by seq asc" +
                 "       limit ?," + pageNum;

@@ -1,14 +1,17 @@
 package com.example.servicecuntian.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 public class Forecast {
 
-    private String seq;
+    private int seq;
     private String osa;
     private String distyName;
     private String customerCode;

@@ -1,27 +1,27 @@
 package com.example.servicecuntian.service.impl;
 
-import com.example.servicecuntian.dao.VmistockDao;
+import com.example.servicecuntian.dao.VmiStockDao;
 import com.example.servicecuntian.model.Vmistock;
 import com.example.servicecuntian.service.ServiceExceptionUtil;
-import com.example.servicecuntian.service.VmistockService;
+import com.example.servicecuntian.service.VmiStockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class VmistockServiceImpl implements VmistockService {
+public class VmiStockServiceImpl implements VmiStockService {
     @Autowired
-    private VmistockDao vmistockDao;
+    private VmiStockDao vmiStockDao;
 
     @Autowired
     private ServiceExceptionUtil serviceExceptionUtil;
 
     @Override
-    public List<Vmistock> getVmistocks(int startNum, int pageNum) {
+    public List<Vmistock> getVmiStocks(int startNum, int pageNum) {
         List<Vmistock> vmistocks = null;
         try {
-            vmistocks = vmistockDao.getVmistocks(startNum, pageNum);
+            vmistocks = vmiStockDao.getVmiStocks(startNum, pageNum);
         } catch (Exception e) {
             serviceExceptionUtil.catchContent(e);
         }
@@ -32,7 +32,7 @@ public class VmistockServiceImpl implements VmistockService {
     public int getCount() {
         int count = 0;
         try {
-            count = vmistockDao.getCount();
+            count = vmiStockDao.getCount();
         } catch (Exception e) {
             serviceExceptionUtil.catchContent(e);
         }
@@ -43,7 +43,7 @@ public class VmistockServiceImpl implements VmistockService {
     public String getLatestDateMark() {
         String date = null;
         try {
-            date = vmistockDao.getLatestDateMark();
+            date = vmiStockDao.getLatestDateMark();
         } catch (Exception e) {
             serviceExceptionUtil.catchContent(e);
         }

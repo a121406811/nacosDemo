@@ -4,9 +4,9 @@ import com.example.servicecuntian.model.Vmistock;
 
 import java.util.List;
 
-public interface VmistockService {
+public interface VmiStockService {
 
-    public List<Vmistock> getVmistocks(int startNum, int pageNum);
+    public List<Vmistock> getVmiStocks(int startNum, int pageNum);
 
     public int getCount();
 

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 @Data
 public class StockMovementHistory {
 
-    private String seq;
+    private int seq;
     private String osa;
     private String distyName;
     private String customerCode;

@@ -26,7 +26,7 @@ public class OrderDaoImpl implements OrderDao {
                 "       osa,\n" +
                 "       disty_name,\n" +
                 "       customer_code,\n" +
-                "       end_costomer_name,\n" +
+                "       end_customer_name,\n" +
                 "       cpn,\n" +
                 "       mpn,\n" +
                 "       application,\n" +
@@ -34,7 +34,7 @@ public class OrderDaoImpl implements OrderDao {
                 "       order_date,\n" +
                 "       sum(order_qty) as order_qty\n" +
                 "from hana_new_dbsyn.xh_order_file\n" +
-                "group by seq, osa, disty_name, customer_code, end_costomer_name, cpn, mpn, application, end_customer_part, order_date\n" +
+                "group by seq, osa, disty_name, customer_code, end_customer_name, cpn, mpn, application, end_customer_part, order_date\n" +
                 "having order_date > ? and order_date < ?\n" +
                 "order by seq asc \n" +
                 "limit ?," + pageNum;

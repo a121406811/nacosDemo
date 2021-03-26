@@ -61,7 +61,8 @@ public class SecurityConfig {
             "/swagger-ui.html",
             "/webjars/springfox-swagger-ui",
             "/webjars/springfox-swagger-ui/**",
-            "/swagger/**"
+            "/swagger/**",
+            "/confirmUpdate.html"
     };
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

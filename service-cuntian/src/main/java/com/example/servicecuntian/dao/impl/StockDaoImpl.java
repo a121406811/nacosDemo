@@ -24,7 +24,7 @@ public class StockDaoImpl implements StockDao {
                 "       osa,\n" +
                 "       disty_name,\n" +
                 "       customer_code,\n" +
-                "       end_costomer_name,\n" +
+                "       end_customer_name,\n" +
                 "       cpn,\n" +
                 "       mpn,\n" +
                 "       application,\n" +
@@ -32,7 +32,7 @@ public class StockDaoImpl implements StockDao {
                 "       warhouse,\n" +
                 "       sum(stock_qty) as stock_qty\n" +
                 "from hana_new_dbsyn.xh_stock_file\n" +
-                "group by seq, osa, disty_name, customer_code, end_costomer_name, cpn, mpn, application, end_customer_part, warhouse\n" +
+                "group by seq, osa, disty_name, customer_code, end_customer_name, cpn, mpn, application, end_customer_part, warhouse\n" +
                 " order by seq asc limit " + startNum + "," + pageNum;
         RowMapper<Stock> rowMapper = null;
         rowMapper = new BeanPropertyRowMapper<>(Stock.class);

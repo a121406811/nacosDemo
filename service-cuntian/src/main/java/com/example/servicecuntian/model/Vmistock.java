@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Data
 public class Vmistock {
 
-    private String seq;
+    private int seq;
     private String osa;
     private String distyName;
     private String customerCode;

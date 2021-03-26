@@ -3,10 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title th:text="${msg}"></title>
 </head>
 <body>
-<p th:text="${msg}"/>
+你好，门户系统村田接口发生异常：<p th:text="${msg}"/>
+
+<td th:if="${log} !=null">
+    错误日志如下：
+    <p th:text="${log}"/>
+</td>
 </body>
 </html>

@@ -24,7 +24,7 @@ public class SalesDaoImpl implements SalesDao {
                 "       osa,\n" +
                 "       disty_name,\n" +
                 "       customer_code,\n" +
-                "       end_costomer_name,\n" +
+                "       end_customer_name,\n" +
                 "       cpn,\n" +
                 "       mpn,\n" +
                 "       application,\n" +
@@ -32,7 +32,7 @@ public class SalesDaoImpl implements SalesDao {
                 "       sales_date,\n" +
                 "       sum(sales_qty) as sales_qty\n" +
                 "from hana_new_dbsyn.xh_sales_file\n" +
-                "group by seq, osa, disty_name, customer_code, end_costomer_name, cpn, mpn, application, end_customer_part, sales_date\n" +
+                "group by seq, osa, disty_name, customer_code, end_customer_name, cpn, mpn, application, end_customer_part, sales_date\n" +
                 "having sales_date > ? and sales_date < ? order by seq asc\n" +
                 "limit ?," + pageNum;
 
