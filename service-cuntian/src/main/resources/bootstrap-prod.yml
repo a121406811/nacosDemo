@@ -1,0 +1,57 @@
+spring:
+#  application:
+#    name: service-cuntian
+  cloud:
+    nacos:
+      server-addr: 172.20.17.69:8848
+      config:
+        server-addr: 172.20.17.69:8848
+        file-extension: yaml
+  profiles:
+    active: prod
+  datasource:
+    kylin:
+      name: kylin
+      type: org.apache.tomcat.jdbc.pool.DataSource
+      driver-class-name: org.apache.kylin.jdbc.Driver
+      jdbc-url: jdbc:kylin://172.69.1.171:7070/xh_dbsync
+      username: ADMIN
+      password: KYLIN
+      maxWaitTime: 10000
+      poolSize: 10
+
+#  mail:
+#    host: smtp.163.com
+#    username: aa121406811@163.com
+#    password: VQHHAGZUVVSKJHGV
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
+
+#  thymeleaf:
+#    prefix: classpath:/templates/
+#    mode: HTML
+#    cache: false
+#    encoding: UTF-8
+#    servlet:
+#      content-type: text/html
+#
+#swagger:
+#  base-package: com.example.servicecuntian.controller
+
+logging:
+  config:
+    classpath: logback-spring.xml
+  level:
+    com.alibaba.nacos.client.*: WARN
+
+#custom:
+#  parameters: 2020002551,6666
+#  pageNum: 100
+#pageNum: 50
+
+

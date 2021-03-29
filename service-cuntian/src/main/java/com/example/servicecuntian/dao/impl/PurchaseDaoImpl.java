@@ -4,6 +4,7 @@ import com.example.servicecuntian.dao.PurchaseDao;
 import com.example.servicecuntian.model.Purchase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,6 +20,9 @@ public class PurchaseDaoImpl implements PurchaseDao {
     @Qualifier("kylinTemplate")
     private JdbcTemplate kylinTemplate;
 
+    @Value("${databaseName}")
+    private String databaseName;
+
     public List<Purchase> getPurchases(String purchaseDateFrom, String purchaseDateTo, int startNum, int pageNum) throws Exception {
         String sql = "select seq,\n" +
                 "       osa,\n" +
@@ -33,7 +37,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
                 "       purchase_date,\n" +
                 "       sum(purchase_qty) purchase_qty,\n" +
                 "       murata_invoice_no\n" +
-                "from hana_new_dbsyn.xh_purchase_file\n" +
+                "from " + databaseName + ".xh_purchase_file\n" +
                 "group by seq, osa, disty_name, customer_code, end_customer_name, cpn, mpn, application, end_customer_part,\n" +
                 "         warehouse, purchase_date, murata_invoice_no\n" +
                 "having purchase_date > ? and purchase_date < ? order by seq asc\n" +
@@ -44,7 +48,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
     }
 
     public int getCount() throws Exception {
-        String sql = "select count(seq) from hana_new_dbsyn.xh_purchase_file";
+        String sql = "select count(seq) from " + databaseName + ".xh_purchase_file";
         return kylinTemplate.queryForObject(sql, Integer.class);
     }
 
@@ -56,7 +60,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
      */
     @Override
     public String getLatestDateMark() throws Exception {
-        String sql = "select date_mark from hana_new_dbsyn.xh_purchase_file order by date_mark desc limit 1,1;";
+        String sql = "select date_mark from " + databaseName + ".xh_purchase_file order by date_mark desc limit 1,1;";
         return kylinTemplate.queryForObject(sql, String.class);
     }
 }

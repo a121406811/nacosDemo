@@ -6,6 +6,7 @@ import com.example.servicecuntian.model.StockMovementHistory;
 import com.example.servicecuntian.model.TradeVmi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,8 +21,11 @@ public class TradeVmiImpl implements TradeVmiDao {
     @Qualifier("kylinTemplate")
     private JdbcTemplate kylinTemplate;
 
+    @Value("${databaseName}")
+    private String databaseName;
+
     @Override
-    public List<TradeVmi> getTradeVmis(String tradeDateFrom, String tradeDateTo, int startNum, int pageNum) throws Exception{
+    public List<TradeVmi> getTradeVmis(String tradeDateFrom, String tradeDateTo, int startNum, int pageNum) throws Exception {
         String sql = "select seq,\n" +
                 "       osa,\n" +
                 "       disty_name,\n" +
@@ -33,7 +37,7 @@ public class TradeVmiImpl implements TradeVmiDao {
                 "       end_customer_part,\n" +
                 "       trade_date,\n" +
                 "       sum(trade_qty) as trade_qty\n" +
-                "from hana_new_dbsyn.xh_trade_vmi_file\n" +
+                "from " + databaseName + ".xh_trade_vmi_file\n" +
                 "group by seq, osa, disty_name, customer_code, end_customer_name, cpn, mpn, application, end_customer_part, trade_date\n" +
                 "having trade_date > ? and trade_date < ?\n" +
                 "order by seq asc\n" +
@@ -44,8 +48,8 @@ public class TradeVmiImpl implements TradeVmiDao {
     }
 
     @Override
-    public int getCount()throws Exception {
-        String sql = "select count(seq) from hana_new_dbsyn.xh_trade_vmi_file";
+    public int getCount() throws Exception {
+        String sql = "select count(seq) from " + databaseName + ".xh_trade_vmi_file";
         return kylinTemplate.queryForObject(sql, Integer.class);
     }
 
@@ -57,7 +61,7 @@ public class TradeVmiImpl implements TradeVmiDao {
      */
     @Override
     public String getLatestDateMark() throws Exception {
-        String sql = "select date_mark from hana_new_dbsyn.xh_trade_vmi_file order by date_mark desc limit 1,1;";
+        String sql = "select date_mark from " + databaseName + ".xh_trade_vmi_file order by date_mark desc limit 1,1;";
         return kylinTemplate.queryForObject(sql, String.class);
     }
 }

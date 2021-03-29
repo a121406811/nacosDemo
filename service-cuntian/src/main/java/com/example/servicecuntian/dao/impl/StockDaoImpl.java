@@ -4,6 +4,7 @@ import com.example.servicecuntian.dao.StockDao;
 import com.example.servicecuntian.model.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,6 +20,9 @@ public class StockDaoImpl implements StockDao {
     @Qualifier("kylinTemplate")
     private JdbcTemplate kylinTemplate;
 
+    @Value("${databaseName}")
+    private String databaseName;
+
     public List<Stock> getStocks(int startNum, int pageNum) throws Exception {
         String sql = "select seq,\n" +
                 "       osa,\n" +
@@ -31,7 +35,7 @@ public class StockDaoImpl implements StockDao {
                 "       end_customer_part,\n" +
                 "       warhouse,\n" +
                 "       sum(stock_qty) as stock_qty\n" +
-                "from hana_new_dbsyn.xh_stock_file\n" +
+                "from " + databaseName + ".xh_stock_file\n" +
                 "group by seq, osa, disty_name, customer_code, end_customer_name, cpn, mpn, application, end_customer_part, warhouse\n" +
                 " order by seq asc limit " + startNum + "," + pageNum;
         RowMapper<Stock> rowMapper = null;
@@ -40,7 +44,7 @@ public class StockDaoImpl implements StockDao {
     }
 
     public int getCount() throws Exception {
-        String sql = "select count(seq) from hana_new_dbsyn.xh_stock_file";
+        String sql = "select count(seq) from " + databaseName + ".xh_stock_file";
         Integer count = 0;
         count = kylinTemplate.queryForObject(sql, Integer.class);
         return count;
@@ -54,7 +58,7 @@ public class StockDaoImpl implements StockDao {
      */
     @Override
     public String getLatestDateMark() throws Exception {
-        String sql = "select date_mark from hana_new_dbsyn.xh_stock_file order by date_mark desc limit 1,1;";
+        String sql = "select date_mark from " + databaseName + ".xh_stock_file order by date_mark desc limit 1,1;";
         return kylinTemplate.queryForObject(sql, String.class);
     }
 }
