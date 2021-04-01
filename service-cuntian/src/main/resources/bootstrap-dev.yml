@@ -8,6 +8,10 @@ spring:
       config:
         server-addr: 172.20.17.69:8848
         file-extension: yaml
+        group: GATEWAY
+        namespace: 959f2145-4dd4-4f0c-8638-197fd1f511ff
+        username: nacos
+        password: nacos
   datasource:
     kylin:
       name: kylin

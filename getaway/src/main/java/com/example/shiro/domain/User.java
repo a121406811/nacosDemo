@@ -13,7 +13,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String username;
     private String password;
     private boolean accountNonExpired;  //登录凭证是否过期
@@ -62,11 +62,11 @@ public class User implements UserDetails {
         return enabled;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -13,19 +13,13 @@
         <module name="service-cuntian" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="server-cuntian" target="11" />
-      <module name="shiro" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="getaway" options="-parameters" />
       <module name="nacos" options="-parameters" />
       <module name="nacosDemo" options="-parameters" />
-      <module name="server-cuntian" options="-parameters" />
       <module name="service-cuntian" options="-parameters" />
-      <module name="shiro" options="-parameters" />
       <module name="test" options="-parameters" />
     </option>
   </component>

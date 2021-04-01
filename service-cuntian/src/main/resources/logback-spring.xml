@@ -147,7 +147,7 @@
         <!-- 基于时间的分包策略 -->
         <rollingPolicy
                 class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/tags-info-req.%d{yyyy-MM-dd}.%i.log
+            <fileNamePattern>${log.path}/count/log-count-.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <maxFileSize>100MB</maxFileSize>
             <!--保留时间,单位:天 -->
