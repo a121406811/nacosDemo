@@ -27,7 +27,7 @@ public class ServiceExceptionUtil {
     public void catchContent(Exception e) {
         System.out.println(e);
         // 获取调用本方法的对象
-        StackTraceElement stack[] = Thread.currentThread().getStackTrace();
+        StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         String tableName = stack[2].toString();
         System.out.println(tableName);//调用本方法的类       com.test.B.main(B.java:4)
         logger.error("------------" + tableName + "查询数据库失败！----------------");

@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface OrderService {
 
-    public List<Order> getOrders(String orderDateFrom, String orderDateTo, int startNum, int pageNum);
+    List<Order> getOrders(String orderDateFrom, String orderDateTo, int startNum, int pageNum);
 
-    public int getCount();
+    int getCount();
 
-    public String getLatestDateMark();
+    String getLatestDateMark();
 }

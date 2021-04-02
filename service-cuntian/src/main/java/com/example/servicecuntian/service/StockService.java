@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface StockService {
 
-    public List<Stock> getStocks(int startNum, int pageNum);
+    List<Stock> getStocks(int startNum, int pageNum);
 
-    public int getCount();
+    int getCount();
 
-    public String getLatestDateMark();
+    String getLatestDateMark();
 }

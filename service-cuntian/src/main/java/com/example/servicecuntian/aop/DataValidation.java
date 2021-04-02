@@ -2,6 +2,7 @@ package com.example.servicecuntian.aop;
 
 import com.example.servicecuntian.exception.BusinessException;
 import com.example.servicecuntian.util.EmailUtil;
+import com.example.servicecuntian.util.GetIP;
 import com.example.servicecuntian.util.SpringContextUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -13,7 +14,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -31,7 +36,7 @@ public class DataValidation {
     private final String ExpGetResultDataPonit = "execution(* com.example.servicecuntian.controller.*.*(..))";
 
     private static final Logger logger = LoggerFactory.getLogger(DataValidation.class);
-    private static Logger countLogger = LoggerFactory.getLogger("count");
+    private static final Logger countLogger = LoggerFactory.getLogger("count");
 
     @Autowired
     private EmailUtil emailUtil;
@@ -55,13 +60,22 @@ public class DataValidation {
     @Before("pointCut()")
     public void beforeAdvice(JoinPoint joinPoint) {
         System.out.println("----------- 前置方法调用 -----------");
-        // 调用时打印日志
-        String methodName = joinPoint.getSignature().getName();
-        countLogger.info(methodName + "方法被调用");
-        // 检查参数格式
+        // 获取方法参数
         Object[] obj = joinPoint.getArgs();
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        String str = "";
+        for (Object s : obj) {
+            str = str + s.toString() + ",";
+        }
+        // 调用时打印count日志
+        String methodName = joinPoint.getSignature().getName();
+        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+        assert sra != null;
+        HttpServletRequest request = sra.getRequest();
+        countLogger.info(methodName + ";" + GetIP.getIpAddr(request) + ";" + str);
+        // 检查参数格式
         if (obj.length == 3) {
+//            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
             String dateFrom = (String) obj[0];
             String dateTo = (String) obj[1];
             if (!isRqFormat(dateFrom) || !isRqFormat(dateTo)) {

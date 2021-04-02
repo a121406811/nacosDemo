@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface VmiStockService {
 
-    public List<Vmistock> getVmiStocks(int startNum, int pageNum);
+    List<Vmistock> getVmiStocks(int startNum, int pageNum);
 
-    public int getCount();
+    int getCount();
 
-    public String getLatestDateMark();
+    String getLatestDateMark();
 }

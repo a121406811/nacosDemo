@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface TradeVmiDao {
 
-    public List<TradeVmi> getTradeVmis(String tradeDateFrom, String tradeDateTo, int startNum, int pageNum) throws Exception;
+    List<TradeVmi> getTradeVmis(String tradeDateFrom, String tradeDateTo, int startNum, int pageNum) throws Exception;
 
-    public int getCount() throws Exception;
+    int getCount() throws Exception;
 
-    public String getLatestDateMark() throws Exception;
+    String getLatestDateMark() throws Exception;
 
 }

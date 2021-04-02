@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface PurchaseService {
 
-    public List<Purchase> getPurchases(String purchaseDateFrom, String purchaseDateTo, int startNum, int pageNum);
+    List<Purchase> getPurchases(String purchaseDateFrom, String purchaseDateTo, int startNum, int pageNum);
 
-    public int getCount();
+    int getCount();
 
-    public String getLatestDateMark();
+    String getLatestDateMark();
 
 }

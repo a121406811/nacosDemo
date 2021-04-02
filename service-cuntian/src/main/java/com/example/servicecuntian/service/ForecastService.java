@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ForecastService {
 
-    public List<Forecast> getForecasts(Integer startNum, Integer pageNum);
+    List<Forecast> getForecasts(Integer startNum, Integer pageNum);
 
-    public Integer getCount();
+    Integer getCount();
 
-    public String getLatestDateMark();
+    String getLatestDateMark();
 }

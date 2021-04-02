@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 public class KylinDataSource implements DataSource {
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private LinkedList<Connection> connectionPoolList = new LinkedList<>();
+    private final LinkedList<Connection> connectionPoolList = new LinkedList<>();
 
     private long maxWaitTime;
 
@@ -104,9 +104,9 @@ public class KylinDataSource implements DataSource {
 
     static class ConnectionProxy implements InvocationHandler {
 
-        private Object obj;
-        private LinkedList<Connection> pool;
-        private String DEFAULT_CLOSE_METHOD = "close";
+        private final Object obj;
+        private final LinkedList<Connection> pool;
+        private final String DEFAULT_CLOSE_METHOD = "close";
 
         private ConnectionProxy(Object obj, LinkedList<Connection> pool) {
             this.obj = obj;

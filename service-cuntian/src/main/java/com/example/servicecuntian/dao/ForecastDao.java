@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface ForecastDao {
 
-    public List<Forecast> getForecasts(Integer startNum, Integer pageNum) throws Exception;
+    List<Forecast> getForecasts(Integer startNum, Integer pageNum) throws Exception;
 
-    public Integer getCount() throws Exception;
+    Integer getCount() throws Exception;
 
-    public String getLatestDateMark() throws Exception;
+    String getLatestDateMark() throws Exception;
 
 }

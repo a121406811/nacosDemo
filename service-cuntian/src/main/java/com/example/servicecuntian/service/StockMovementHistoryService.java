@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface StockMovementHistoryService {
 
-    public List<StockMovementHistory> getStockMovementHistorys(String moveDateFrom, String moveDateTo, int startNum, int pageNum);
+    List<StockMovementHistory> getStockMovementHistorys(String moveDateFrom, String moveDateTo, int startNum, int pageNum);
 
-    public int getCount();
+    int getCount();
 
-    public String getLatestDateMark();
+    String getLatestDateMark();
 }

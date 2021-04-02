@@ -10,7 +10,7 @@ public class CASUtil {
 
     private static final String getTokenUrl = "https://yuntestsso.szhq.com/ssocas/oauth2.0/accessToken";
     private static final String getIdUrl = "https://yuntestsso.szhq.com/ssocas/oauth2.0/profile";
-    private static RestTemplate restTemplate = new RestTemplate();
+    private static final RestTemplate restTemplate = new RestTemplate();
     private static ResponseEntity<String> result = null;
 
     /**

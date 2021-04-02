@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface OrderDao {
 
-    public List<Order> getOrders(String orderDateFrom, String orderDateTo, int startNum, int pageNum) throws Exception;
+    List<Order> getOrders(String orderDateFrom, String orderDateTo, int startNum, int pageNum) throws Exception;
 
-    public int getCount() throws Exception;
+    int getCount() throws Exception;
 
-    public String getLatestDateMark() throws Exception;
+    String getLatestDateMark() throws Exception;
 
 }
