@@ -1,28 +1,39 @@
 package com.example.shiro.util;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+@Component
 public class CASUtil {
 
-    private static final String getTokenUrl = "https://yuntestsso.szhq.com/ssocas/oauth2.0/accessToken";
-    private static final String getIdUrl = "https://yuntestsso.szhq.com/ssocas/oauth2.0/profile";
     private static final RestTemplate restTemplate = new RestTemplate();
     private static ResponseEntity<String> result = null;
 
+    @Value("${CAS.getTokenUrl}")
+    private String getTokenUrl;
+
+    @Value("${CAS.getIdUrl}")
+    private String getIdUrl;
+
+    @Value("${CAS.client_id}")
+    private String client_id;
+
     /**
-     *  调用CAS，验证账户密码
+     * 调用CAS，验证账户密码
+     *
      * @param username
      * @param password
      * @return
      */
-    public static ResponseEntity<String> getCasToken(String username, String password) {
+    public ResponseEntity<String> getCasToken(String username, String password) {
         MultiValueMap<String, String> requestParam = new LinkedMultiValueMap<>();
         requestParam.set("grant_type", "password");
-        requestParam.set("client_id", "c86c43b1efec472b41839dd78ce87c94");
+        requestParam.set("client_id", client_id);
         requestParam.set("username", username);
         requestParam.set("password", password);
 
@@ -39,10 +50,11 @@ public class CASUtil {
 
     /**
      * 调用CAS  验证token
+     *
      * @param token
      * @return
      */
-    public static ResponseEntity<String> getUserIdToToken(String token) {
+    public ResponseEntity<String> getUserIdToToken(String token) {
 
         try {
 //            result = restTemplate.getForEntity(getIdUrl, String.class, requestParam);

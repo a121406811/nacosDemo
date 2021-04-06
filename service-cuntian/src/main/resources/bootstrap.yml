@@ -5,7 +5,7 @@ spring:
   application:
     name: service-cuntian
   profiles:
-    active: prod
+    active: dev
 
   mail:
     host: smtp.163.com

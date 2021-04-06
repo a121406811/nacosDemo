@@ -8,7 +8,7 @@ public class Result {
     public static Map<String, Object> error(String code, String message) {
         Map<String, Object> data = new HashMap<>();
         data.put("resultCode", code);
-        data.put("message", message);
+        data.put("data", message);
         return data;
     }
 
@@ -19,7 +19,7 @@ public class Result {
         return redata;
     }*/
 
-    public static Map<String, Object> success(long totalDataCount, long currentDataCount, Object data) {
+    public static Map<String, Object> success(int totalDataCount, int currentDataCount, Object data) {
         Map<String, Object> redata = new HashMap<>();
         redata.put("resultCode", "200");
         redata.put("request_body", data);

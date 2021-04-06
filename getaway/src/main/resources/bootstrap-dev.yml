@@ -34,3 +34,7 @@ logging:
   level:
     com.alibaba.nacos.client.*: WARN
 
+CAS:
+  getTokenUrl: https://yuntestsso.szhq.com/ssocas/oauth2.0/accessToken
+  getIdUrl: https://yuntestsso.szhq.com/ssocas/oauth2.0/profile
+  client_id: c86c43b1efec472b41839dd78ce87c94

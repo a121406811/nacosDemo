@@ -17,7 +17,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
  * 本filter使gateway对前端是https，对后端是http
  */
 
-@Profile("prod")
+@Profile("prod,dev")
 @Component
 public class SchemeFilter implements GlobalFilter, Ordered {
 

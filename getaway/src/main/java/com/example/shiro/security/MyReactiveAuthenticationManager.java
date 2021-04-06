@@ -29,12 +29,15 @@ public class MyReactiveAuthenticationManager implements ReactiveAuthenticationMa
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CASUtil casUtil;
+
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
         //获取token
         String credentials = (String) authentication.getCredentials();
 
-        ResponseEntity<String> result = CASUtil.getUserIdToToken(credentials);
+        ResponseEntity<String> result = casUtil.getUserIdToToken(credentials);
         String body = result.getBody();
         String userId = null;
         try {

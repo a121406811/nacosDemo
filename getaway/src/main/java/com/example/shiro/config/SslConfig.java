@@ -5,7 +5,6 @@ import org.springframework.boot.web.embedded.netty.NettyReactiveWebServerFactory
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.parameters.P;
 import reactor.core.publisher.Mono;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -13,7 +12,7 @@ import javax.annotation.PostConstruct;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-@Profile("prod")
+@Profile("prod,dev")
 @Configuration
 public class SslConfig {
 
