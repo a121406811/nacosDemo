@@ -64,7 +64,8 @@ public class TestController {
     @ApiOperation(value = "purchase")     //这个注解必须要
     @PostMapping(value = "/purchase")
     public Map<String, Object> purchase(String purchaseDateFrom, String purchaseDateTo, int lastRecordNum) {
-        int count = purchaseService.getCount();
+        int count = purchaseService.getCountByDate(purchaseDateFrom, purchaseDateTo);
+//        int count = purchaseService.getCount();
         verificationLastRecordNum(lastRecordNum, count);
         Integer startNum = getStartNum(lastRecordNum);
         List<Purchase> purchases = purchaseService.getPurchases(purchaseDateFrom, purchaseDateTo, startNum, pageNum);
@@ -74,7 +75,8 @@ public class TestController {
     @ApiOperation(value = "sales")     //这个注解必须要
     @PostMapping(value = "/sales")
     public Map<String, Object> sales(String salesDateFrom, String salesDateTo, int lastRecordNum) {
-        int count = salesService.getCount();
+        int count = salesService.getCountByDate(salesDateFrom, salesDateTo);
+//        int count = salesService.getCount();
         verificationLastRecordNum(lastRecordNum, count);
         Integer startNum = getStartNum(lastRecordNum);
         List<Sales> saless = salesService.getSales(salesDateFrom, salesDateTo, startNum, pageNum);
@@ -94,7 +96,8 @@ public class TestController {
     @ApiOperation(value = "tradeVmi")     //这个注解必须要
     @PostMapping(value = "/tradeVmi")
     public Map<String, Object> tradeVmi(String tradeDateFrom, String tradeDateTo, int lastRecordNum) {
-        int count = tradeVmiService.getCount();
+        int count = tradeVmiService.getCountByDate(tradeDateFrom, tradeDateTo);
+//        int count = tradeVmiService.getCount();
         verificationLastRecordNum(lastRecordNum, count);
         Integer startNum = getStartNum(lastRecordNum);
         List<TradeVmi> tradeVmis = tradeVmiService.getTradeVmis(tradeDateFrom, tradeDateTo, startNum, pageNum);
@@ -104,7 +107,8 @@ public class TestController {
     @ApiOperation(value = "order")     //这个注解必须要
     @PostMapping(value = "/order")
     public Map<String, Object> order(String orderDateFrom, String orderDateTo, int lastRecordNum) {
-        int count = orderService.getCount();
+        int count = orderService.getCountByDate(orderDateFrom, orderDateTo);
+//        int count = orderService.getCount();
         verificationLastRecordNum(lastRecordNum, count);
         Integer startNum = getStartNum(lastRecordNum);
         List<Order> orders = orderService.getOrders(orderDateFrom, orderDateTo, startNum, pageNum);
@@ -117,7 +121,8 @@ public class TestController {
     public Map<String, Object> stockMovementHistory(String moveDateFrom,
                                                     String moveDateTo,
                                                     int lastRecordNum) {
-        int count = stockMovementHistoryService.getCount();
+        int count = stockMovementHistoryService.getCountByDate(moveDateFrom, moveDateTo);
+//        int count = stockMovementHistoryService.getCount();
         verificationLastRecordNum(lastRecordNum, count);
         Integer startNum = getStartNum(lastRecordNum);
         List<StockMovementHistory> stockMovementHistorys = stockMovementHistoryService.getStockMovementHistorys(moveDateFrom, moveDateTo, startNum, pageNum);

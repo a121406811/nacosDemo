@@ -10,6 +10,8 @@ public interface SalesDao {
 
     int getCount() throws Exception;
 
+    int getCountByDate(String from, String to) throws Exception;
+
     String getLatestDateMark() throws Exception;
 
 }

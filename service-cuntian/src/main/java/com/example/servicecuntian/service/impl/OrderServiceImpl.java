@@ -40,6 +40,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public int getCountByDate(String from, String to) {
+        int count = 0;
+        try {
+            count = orderDao.getCountByDate(from, to);
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return count;
+    }
+
+    @Override
     public String getLatestDateMark() {
         String latestDateMark = null;
         try {

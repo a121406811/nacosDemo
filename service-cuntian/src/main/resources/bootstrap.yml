@@ -6,7 +6,6 @@ spring:
     name: service-cuntian
   profiles:
     active: dev
-
   mail:
     host: smtp.163.com
     username: aa121406811@163.com

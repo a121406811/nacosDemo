@@ -10,5 +10,7 @@ public interface SalesService {
 
     int getCount();
 
+    int getCountByDate(String from, String to);
+
     String getLatestDateMark();
 }

@@ -66,7 +66,7 @@ public class DataValidation {
         for (Object s : obj) {
             str = str + s.toString() + ",";
         }
-        // 调用时打印count日志
+        // 打印count日志
         String methodName = joinPoint.getSignature().getName();
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
@@ -97,15 +97,17 @@ public class DataValidation {
 
     /**
      * 验证数据
-     * 1、时间是否对的上
+     * 1、时间是否为当天
      * 2、是否为空
      */
     private void verificationTime(String methodName, Object[] obj, Map<String, Object> result) {
-        List<Object> request_body = (List<Object>) result.get("request_body");
+        Integer totalDataCount = (Integer) result.get("totalDataCount");
         String msg = "";
         Integer lastRecordNum = (Integer) (obj.length == 1 ? obj[0] : obj[2]);
-        // 检查数据是否为空
-        if (request_body.size() == 0) {
+        // 查询该表总条数
+        int count = (int) getCount(methodName);
+        // 检查整个表数据是否为空
+        if (count == 0) {
             result.put("resultCode", "204");    //数据为空
             msg = msg + "kylin中的" + methodName + "数据为空，请检查！";
             if (lastRecordNum == 0) {
@@ -113,12 +115,13 @@ public class DataValidation {
                 emailUtil.sendTemplateEmail(emails, msg, null);
             }
         } else {
-            // 检查数据是否是最新的
-            String dateMark = (String) invoke(methodName);
+            // 检查时间是否为当天
+            String dateMark = (String) getLatestDateMark(methodName);
             boolean b = isNow(dateMark);
             if (!b) {
                 result.put("resultCode", "900");   //数据不是最新的，当天kylin数据未更新
-                msg = msg + "kylin中的" + methodName + "数据最新更新时间为：" + dateMark + "，请检查！";
+                msg = msg + "kylin中的" + methodName + "数据最新更新时间为：" + dateMark + "，当前时间为："
+                        + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "；请检查！";
                 // 每个表完整获取一次数据时，发送一次邮件
                 if (lastRecordNum == 0) {
                     logger.error(msg);
@@ -170,12 +173,42 @@ public class DataValidation {
     /**
      * 通过反射调用service层的getLatestDateMark方法
      */
-    private Object invoke(String methodName) {
+    private Object getLatestDateMark(String methodName) {
         String className = "com.example.servicecuntian.service." + methodName.substring(0, 1).toUpperCase() + methodName.substring(1) + "Service";
         Object obj = null;
         try {
             Class<?> clazz = Class.forName(className);
             Method method = clazz.getMethod("getLatestDateMark");
+            obj = method.invoke(SpringContextUtil.getBean(clazz));
+            System.out.println(obj);
+        } catch (InvocationTargetException e) {
+            logger.error(methodName + "表调用getLatestDateMark时失败，反射调用对象方法失败");
+            logger.error(e.getMessage());
+        } catch (NoSuchMethodException e) {
+            logger.error(methodName + "表调用getLatestDateMark时失败，反射调用对象方法不存在");
+            logger.error(e.getMessage());
+        } catch (IllegalAccessException e) {
+            logger.error(methodName + "表调用getLatestDateMark时失败，反射调用对象方法格式错误");
+            logger.error(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            logger.error(methodName + "表调用getLatestDateMark时失败，反射类不存在");
+            logger.error(e.getMessage());
+        } catch (Exception e) {
+            logger.error(methodName + "表调用getLatestDateMark时失败，反射错误");
+            logger.error(e.getMessage());
+        }
+        return obj;
+    }
+
+    /**
+     * 通过反射调用service层的getCount方法
+     */
+    private Object getCount(String methodName) {
+        String className = "com.example.servicecuntian.service." + methodName.substring(0, 1).toUpperCase() + methodName.substring(1) + "Service";
+        Object obj = null;
+        try {
+            Class<?> clazz = Class.forName(className);
+            Method method = clazz.getMethod("getCount");
             obj = method.invoke(SpringContextUtil.getBean(clazz));
             System.out.println(obj);
         } catch (InvocationTargetException e) {

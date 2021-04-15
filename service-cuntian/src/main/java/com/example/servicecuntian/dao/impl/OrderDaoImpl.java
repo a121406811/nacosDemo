@@ -53,6 +53,12 @@ public class OrderDaoImpl implements OrderDao {
         return kylinTemplate.queryForObject(sql, Integer.class);
     }
 
+    @Override
+    public int getCountByDate(String from, String to) throws Exception {
+        String sql = "select count(seq) from " + databaseName + ".xh_order_file where order_date > ? and order_date < ?";
+        return kylinTemplate.queryForObject(sql, Integer.class, from, to);
+    }
+
     /**
      * 查询kylin的最新的date_mark字段
      *

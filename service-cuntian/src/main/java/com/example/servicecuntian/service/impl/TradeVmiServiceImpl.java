@@ -40,6 +40,17 @@ public class TradeVmiServiceImpl implements TradeVmiService {
     }
 
     @Override
+    public int getCountByDate(String from, String to) {
+        int count = 0;
+        try {
+            count = tradeVmiDao.getCountByDate(from, to);
+        } catch (Exception e) {
+            serviceExceptionUtil.catchContent(e);
+        }
+        return count;
+    }
+
+    @Override
     public String getLatestDateMark() {
         String date = null;
         try {

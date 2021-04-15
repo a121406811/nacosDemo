@@ -1,22 +1,22 @@
 spring:
   cloud:
     nacos:
-      server-addr: 172.20.17.69:8848
+      server-addr: 172.20.7.196:8848
       config:
         file-extension: yaml
-        server-addr: 172.20.17.69:8848
+        server-addr: 172.20.7.196:8848
         group: GATEWAY
-        namespace: 959f2145-4dd4-4f0c-8638-197fd1f511ff
+        namespace: 3e2d433e-6f57-4a96-9be1-df34fb893e1a
         username: nacos
-        password: nacos
+        password: Hq2021
       discovery:
         locator:
           enabled: true
 
   datasource:
     username: root
-    password: admin
-    url: jdbc:mysql://172.20.11.103:3306/portal?useUnicode=false&useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    password: Admin8810203
+    url: jdbc:mysql://sso.szhq.com:1234/portal?useUnicode=false&useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     driverClassName: com.mysql.jdbc.Driver
   jpa:
     database: mysql
@@ -34,8 +34,8 @@ logging:
   level:
     com.alibaba.nacos.client.*: WARN
 
-CAS:
-  getTokenUrl: https://yuntestsso.szhq.com/ssocas/oauth2.0/accessToken
-  getIdUrl: https://yuntestsso.szhq.com/ssocas/oauth2.0/profile
-  client_id: c86c43b1efec472b41839dd78ce87c94
+#CAS:
+#  getTokenUrl: https://sso.szhq.com/ssocas/oauth2.0/accessToken
+#  getIdUrl: https://sso.szhq.com/ssocas/oauth2.0/profile
+#  client_id: c86c43b1efec472b41839dd78ce87c94
 
