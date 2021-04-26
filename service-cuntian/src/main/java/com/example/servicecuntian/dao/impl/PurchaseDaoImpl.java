@@ -40,7 +40,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
                 "from " + databaseName + ".xh_purchase_file\n" +
                 "group by seq, osa, disty_name, customer_code, end_customer_name, cpn, mpn, application, end_customer_part,\n" +
                 "         warehouse, purchase_date, murata_invoice_no\n" +
-                "having purchase_date > ? and purchase_date < ? order by seq asc\n" +
+                "having purchase_date >= ? and purchase_date <= ? order by seq asc\n" +
                 "limit ?," + pageNum;
 
         RowMapper<Purchase> rowMapper = new BeanPropertyRowMapper<>(Purchase.class);
@@ -53,7 +53,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
     }
 
     public int getCountByDate(String from, String to) throws Exception {
-        String sql = "select count(seq) from " + databaseName + ".xh_purchase_file where purchase_date > ? and purchase_date < ? ";
+        String sql = "select count(seq) from " + databaseName + ".xh_purchase_file where purchase_date >= ? and purchase_date <= ? ";
         return kylinTemplate.queryForObject(sql, Integer.class, from, to);
     }
 

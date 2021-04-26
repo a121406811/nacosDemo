@@ -39,7 +39,7 @@ public class StockMovementHistoryDaoImpl implements StockMovementHistoryDao {
                 "from " + databaseName + ".xh_stock_movement_history group by\n" +
                 "seq,osa,disty_name,customer_code,end_customer_name,cpn,mpn,\n" +
                 "       application,end_customer_part,warehouse,move_date,flag\n" +
-                " having move_date> ? and move_date< ? order by seq asc" +
+                " having move_date>= ? and move_date<= ? order by seq asc" +
                 "       limit ?," + pageNum;
         RowMapper<StockMovementHistory> rowMapper = null;
         rowMapper = new BeanPropertyRowMapper<>(StockMovementHistory.class);
@@ -54,7 +54,7 @@ public class StockMovementHistoryDaoImpl implements StockMovementHistoryDao {
     }
 
     public int getCountByDate(String from, String to) throws Exception {
-        String sql = "select count(seq) from " + databaseName + ".xh_stock_movement_history where move_date> ? and move_date < ?";
+        String sql = "select count(seq) from " + databaseName + ".xh_stock_movement_history where move_date>= ? and move_date <= ?";
         return kylinTemplate.queryForObject(sql, Integer.class, from, to);
     }
 

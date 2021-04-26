@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
@@ -50,6 +51,8 @@ public class TestController {
     @Autowired
     private VmiStockService vmiStockService;
 
+    @Autowired
+    private BacklogService backlogService;
 
     @ApiOperation(value = "stock")     //这个注解必须要
     @PostMapping(value = "/stock")
@@ -139,6 +142,16 @@ public class TestController {
         return Result.success(count, vmiStocks.size(), vmiStocks);
     }
 
+    @ApiOperation(value = "backlog")     //这个注解必须要
+    @PostMapping(value = "/backlog")
+    public Map<String, Object> backlog(int lastRecordNum) {
+        int count = backlogService.getCount();
+        verificationLastRecordNum(lastRecordNum, count);
+        Integer startNum = getStartNum(lastRecordNum);
+        List<Backlog> backlogs = backlogService.getBacklogs(startNum, pageNum);
+        return Result.success(count, backlogs.size(), backlogs);
+    }
+
     private int getStartNum(int lastRecordNum) {
         return lastRecordNum;
     }
@@ -148,4 +161,12 @@ public class TestController {
             throw new BusinessException("ERROR", "请求参数lastRecordNum大于总条数");
         }
     }
+
+//    @ApiOperation(value = "test")     //这个注解必须要
+//    @PostMapping(value = "/test")
+//    public Map<String, Object> test() {
+//        Map<String,Object> map = new HashMap<>();
+//        map.put("time",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+//        return map;
+//    }
 }

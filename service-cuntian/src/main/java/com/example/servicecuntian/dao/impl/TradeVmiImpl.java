@@ -39,7 +39,7 @@ public class TradeVmiImpl implements TradeVmiDao {
                 "       sum(trade_qty) as trade_qty\n" +
                 "from " + databaseName + ".xh_trade_vmi_file\n" +
                 "group by seq, osa, disty_name, customer_code, end_customer_name, cpn, mpn, application, end_customer_part, trade_date\n" +
-                "having trade_date > ? and trade_date < ?\n" +
+                "having trade_date >= ? and trade_date <= ?\n" +
                 "order by seq asc\n" +
                 "limit ?," + pageNum;
 
@@ -55,7 +55,7 @@ public class TradeVmiImpl implements TradeVmiDao {
 
     @Override
     public int getCountByDate(String from, String to) throws Exception {
-        String sql = "select count(seq) from " + databaseName + ".xh_trade_vmi_file where trade_date > ? and trade_date < ?";
+        String sql = "select count(seq) from " + databaseName + ".xh_trade_vmi_file where trade_date >= ? and trade_date <= ?";
         return kylinTemplate.queryForObject(sql, Integer.class, from, to);
     }
 
